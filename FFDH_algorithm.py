@@ -1,5 +1,5 @@
 """First Fit Decreasing algorithm"""
-from parser import parseXML
+import my_parser
 
 
 class Paper(object):
@@ -16,8 +16,7 @@ class Paper(object):
 class Level(Paper):
     """ Level in each container """
     def __init__(self):
-        Paper.__init__(self)
-        self.width = 0
+        Paper.__init__(self, height=0, width=0)
 
     def append(self, item):             # добавляем item на уровень (Level)
         self.items.append(item)
@@ -35,9 +34,10 @@ def pack(item_list, max_width):                             # max_width - зад
     levels_list = []
 
     new_level = Level()
-    new_level.append(itemList[0])
-    new_level.height = lambda item_list: item[1]
-    new_level.width = lambda item_list: item[0]
+    new_level.append(item_list[0])
+    # new_level.height = lambda item_list: item[1]
+    # new_level_width = lambda item_list: item[0]
+    # new_level.width = new_level_width
     levels_list.append(new_level)
     level_counter = 1
 
@@ -64,7 +64,7 @@ def pack(item_list, max_width):                             # max_width - зад
                     levels_list.append(new_level)
                     level_counter += 1
 
-            levels_height_sum += new_level.height
+            # levels_height_sum += new_level.height
 
     return levels_list
 
@@ -75,12 +75,12 @@ if __name__ == '__main__':
         """ Pack a list into bins and show the result """
 
         papers_list = []
-        new_paper = Paper()
+        new_paper = Paper(maxHeight, maxWidth)
         papers_list.append(new_paper)
 
         levels_list = pack(aList, maxWidth)
         level_counter = len(levels_list)
-        print('List with orders requires ', level_counter, ' levels')
+        print('List with orders requires', level_counter, 'levels')
 
         for new_paper in papers_list:
             levels_height_sum = 0
@@ -92,15 +92,15 @@ if __name__ == '__main__':
                     new_paper.append_level(level)
                 else:
                     papers_list.append(new_paper)
-                    new_paper = Paper()
+                    new_paper = Paper(maxHeight, maxWidth)
                     new_paper.append_level(level)
                     paper_counter += 1
 
         print('All levels require ', paper_counter, ' pieces of paper')
 
-        # for level in levels_list:
-        #     print(level)
+        for level in levels_list:
+            print(level)
 
 
-    itemList = parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\SD_02856\\order1')
-    packAndShow(itemList, 62370)
+    itemList = my_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\SD_02856\\test')
+    packAndShow(itemList, 841, 1189)
