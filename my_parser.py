@@ -8,7 +8,7 @@ def parseXML(dir):
     orders = []
 
     for file_name in files_list:
-        file_path = dir + '\\' + file_name
+        file_path = os.path.join(dir, file_name)
         tree = ET.parse(file_path)
 
         root = tree.getroot()
