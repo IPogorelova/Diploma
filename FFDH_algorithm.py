@@ -95,11 +95,12 @@ if __name__ == '__main__':
                     new_paper = Paper(maxHeight, maxWidth)
                     new_paper.append_level(level)
                     paper_counter += 1
-
+                    
+        print('List with orders requires', level_counter, 'levels')
         print('All levels require ', paper_counter, ' pieces of paper')
 
-        for level in levels_list:
-            print(level)
+    for level in levels_list:
+        print('Level', level_counter, ':/n', level)
 
 
     itemList = my_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\SD_02856\\test')
