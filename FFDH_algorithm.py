@@ -14,7 +14,7 @@ class Paper(object):
 
     def __str__(self):
         """ Printable representation """
-        return 'Levels on paper: %s' % (str(self.items))
+        return 'Levels on paper: %s' % (list([str(x) for x in self.items]))
 
 class Level(Paper):
     """ Level in each container """
@@ -39,32 +39,30 @@ def pack(item_list, max_width):                                     # max_width 
     new_level = Level()
     #new_level.append(item_list[0])
     levels_list.append(['level_1', new_level, max_width])            # [номер уровня, уровень, свободное место на уровне]
-    level_counter = 1
 
     for item in item_list:
         # Try to fit item into a Level
-        level_num = str('level_' + str(level_counter))
 
         for level in levels_list:
             free_space = level[2] - item[0]                         # для BFDH
-                                                                    # min_free_space = max_width
+            # min_free_space = max_width
             if free_space > 0:                                      # if all([(free_space > 0), (free_space <= min_free_space)]): - for BFDH_alghorithm
                 new_level.append(item)                              # min_free_space = free_space
                 level[2] = free_space
             else:
                 # контейнер не входит ни на один уровень - создаём новый
+                level_num = str('level_' + str(len(levels_list) + 1))
                 print('Level ' + level_num + ' is full. Creating a new level.')
-                levels_list.append([level_num, new_level, (free_space + item[0])])          # добавляет старый уровень в список уровней
                 new_level = Level()
-                level_counter += 1
 
                 new_level.append(item)
                 new_level.height = item[1]
                 new_level.width = item[0]
                 level[2] = (841 - item[0])
+                levels_list.append([level_num, new_level, (free_space + item[0])])          # добавляет старый уровень в список уровней
                 break
 
-            # levels_height_sum += new_level.height
+                # levels_height_sum += new_level.height
 
     return levels_list
 
@@ -106,4 +104,4 @@ if __name__ == '__main__':
 itemList = my_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\SD_02856\\test')
 print(itemList)
 
-print(packAndShow(itemList, 841, 1189))
+print(list([str(x) for x in packAndShow(itemList, 841, 1189)]))
