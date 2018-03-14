@@ -102,6 +102,6 @@ if __name__ == '__main__':
 
 
 itemList = my_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\SD_02856\\test')
-print(itemList)
+#print(itemList)
 
 print(list([str(x) for x in packAndShow(itemList, 841, 1189)]))
