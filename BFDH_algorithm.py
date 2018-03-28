@@ -1,4 +1,4 @@
-"""First Fit Decreasing algorithm"""
+"""Best Fit Decreasing algorithm"""
 import my_parser
 
 
