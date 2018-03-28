@@ -110,5 +110,5 @@ if __name__ == '__main__':
 
 itemList = my_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\SD_02856\\test')
 print(itemList)
-#print(pack(itemList, 841))
+
 print(packAndShow(itemList, 841, 1189))
