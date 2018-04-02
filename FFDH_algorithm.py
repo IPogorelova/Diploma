@@ -67,7 +67,6 @@ def pack(item_list, max_width):                                     # max_width 
     levels_list = []
 
     new_level = Level()
-    #new_level.append(item_list[0])
     levels_list.append(['level_1', new_level, max_width])            # [номер уровня, уровень, свободное место на уровне]
 
     for item in item_list:
@@ -113,7 +112,6 @@ def packAndShow(aList, maxWidth, maxHeight):                    # aList - зде
     levels_height_sum = 0
     paper_counter = 1
     for level in levels_list:
-        #level = element[1]
         levels_height_sum += level[1].height
 
         for new_paper in papers_list:
@@ -144,6 +142,4 @@ def packAndShow(aList, maxWidth, maxHeight):                    # aList - зде
 
 
 itemList = my_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\SD_02856\\test')
-# print(itemList)
-
 print(list([str(x) for x in packAndShow(itemList, 841, 1189)]))
