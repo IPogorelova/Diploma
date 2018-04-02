@@ -30,6 +30,24 @@ class Level(Paper):
         return 'Items on level: %s; level_width: %d; level_height: %d' % (str(self.items), self.width, self.height)
 
 
+def gcd_finding(item_list):
+    circulations_list = []
+
+    for item in item_list:
+        circulations_list.append(item[2])
+
+    circulations_list.sort(reverse=False)
+    gcd_result = circulations_list[0]
+
+    for i in circulations_list:
+        gcd_result = math.gcd(i, gcd_result)
+
+    if gcd_result % 500 != 0:
+        gcd_result = 1
+
+    return gcd_result
+
+
 def pack(item_list, max_width):                                      # max_width - задаётся вручную пока, ширина нынешнего формата
     # функция просто упаковки в контейнер и создания нового при нехватке места
     item_list.sort(key=lambda i: i[1], reverse=True)
