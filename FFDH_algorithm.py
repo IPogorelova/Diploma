@@ -141,5 +141,5 @@ def packAndShow(aList, maxWidth, maxHeight):                    # aList - зде
     return new_papers_list
 
 
-itemList = my_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\SD_02856\\test')
+itemList = my_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\Данные\\SD_02856\\test')
 print(list([str(x) for x in packAndShow(itemList, 841, 1189)]))
