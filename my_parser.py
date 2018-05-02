@@ -26,6 +26,6 @@ def parseXML(dir):
     return orders
 
 
-parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\SD_02856\\test')
+parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\Данные\\SD_02856\\test')
 
 
