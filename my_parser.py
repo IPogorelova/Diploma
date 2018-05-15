@@ -17,8 +17,9 @@ def parseXML(dir):
             amount = element.attrib['Amount']
             content_data = element.attrib['ContentData']
             paper_size = re.search('\d?\d\dx\d?\d?\d\d', content_data).group(0).split('x')
+            jobID = element.attrib['JobID']
 
-            order_parameters = [int(paper_size[0]), int(paper_size[1]), int(amount)]
+            order_parameters = [int(paper_size[0]), int(paper_size[1]), int(amount), int(jobID)]
 
         orders.append(order_parameters)
 

@@ -84,6 +84,7 @@ def pack(item_list, max_width):                                      # max_width
 
         except ValueError:                                                      # item не вхожит ни на один из уровней - создаём новый
             print('No level with enough free space. Creating a new level.')
+            print(level)
             new_level = Level()
             level_counter += 1
             level_num = str('level_' + str(level_counter))
@@ -153,5 +154,5 @@ def packAndShow(aList, maxWidth, maxHeight): # aList - здесь orders, maxVal
     return new_papers_list
 
 
-itemList = my_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\SD_02856\\test')
+itemList = my_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\Данные\\SD_02856\\test')
 print(packAndShow(itemList, 841, 1189))
