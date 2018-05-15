@@ -1,6 +1,7 @@
 """Best Fit Decreasing algorithm"""
 import my_parser
 import math
+from operator import itemgetter
 
 
 class Paper(object):
@@ -56,12 +57,15 @@ def circulations_splitting(item_list):
             parts_amount = int(item[2] / gcd)
             item[2] = parts_amount
 
+        for i in range(parts_amount-1):
+            item_list.append(item)
+
     return item_list
 
 
 def pack(item_list, max_width):                                      # max_width - задаётся вручную пока, ширина нынешнего формата
     # функция просто упаковки в контейнер и создания нового при нехватке места
-    item_list.sort(key=lambda i: i[1], reverse=True)
+    sorted(item_list, key=itemgetter(1, 3), reverse=True)
     item_list = circulations_splitting(item_list)
     levels_list = []
     free_spaces_list = []
