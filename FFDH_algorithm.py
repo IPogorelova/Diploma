@@ -55,9 +55,8 @@ def gcd_finding(item_list):
 def circulations_splitting(item_list):
     gcd = gcd_finding(item_list)
     for item in item_list:
-        if gcd != 1:
-            parts_amount = int(item[2] / gcd)
-            item[2] = parts_amount
+        parts_amount = int(item[2] / gcd)
+        item[2] = parts_amount
 
         for i in range(parts_amount-1):
             item_list.append(item)

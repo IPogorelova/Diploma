@@ -2,6 +2,7 @@
 import my_parser
 import math
 from operator import itemgetter
+import time
 
 
 class Paper(object):
@@ -53,9 +54,8 @@ def gcd_finding(item_list):
 def circulations_splitting(item_list):
     gcd = gcd_finding(item_list)
     for item in item_list:
-        if gcd != 1:
-            parts_amount = int(item[2] / gcd)
-            item[2] = parts_amount
+        parts_amount = int(item[2] / gcd)
+        item[2] = parts_amount
 
         for i in range(parts_amount-1):
             item_list.append(item)
@@ -152,11 +152,18 @@ def packAndShow(aList, maxWidth, maxHeight): # aList - здесь orders, maxVal
 
     for i in range(0, (max_circulation)):
         new_papers_list.append(paper)
-
     print('Printing all orders requires ', len(new_papers_list), ' pieces of paper.')
 
     return new_papers_list
 
 
 itemList = my_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\Данные\\SD_02856\\test')
-print(packAndShow(itemList, 841, 1189))
+
+st_time = time.time()
+packAndShow(itemList, 841, 1189)
+BFDH_time = (time.time() - st_time)
+print(BFDH_time)
+
+# BFDH_result = open('FFDH_result.txt', 'w')
+# BFDH_result.write(packAndShow(itemList, 841, 1189))
+# BFDH_result.close()
