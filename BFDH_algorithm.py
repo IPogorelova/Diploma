@@ -159,10 +159,7 @@ def packAndShow(aList, maxWidth, maxHeight): # aList - здесь orders, maxVal
 
 itemList = my_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\Данные\\SD_02856\\test')
 
-st_time = time.time()
 packAndShow(itemList, 841, 1189)
-BFDH_time = (time.time() - st_time)
-print(BFDH_time)
 
 # BFDH_result = open('FFDH_result.txt', 'w')
 # BFDH_result.write(packAndShow(itemList, 841, 1189))
