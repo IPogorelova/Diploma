@@ -2,7 +2,7 @@
 import my_parser
 import math
 from operator import itemgetter
-import time
+
 
 
 class Paper(object):

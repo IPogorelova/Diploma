@@ -1,18 +1,13 @@
 import FFDH_algorithm
 from FFDH_algorithm import itemList
 import BFDH_algorithm
-import time
+from timeit import Timer
 
 
 def time_compare():
 
-    FFDH_start_time = time.clock()
-    FFDH_algorithm.packAndShow(itemList, 841, 1189)
-    FFDH_time = (time.clock() - FFDH_start_time)
-
-    BFDH_start_time = time.time()
-    BFDH_algorithm.packAndShow(itemList, 841, 1189)
-    BFDH_time = (time.time() - BFDH_start_time)
+    FFDH_time = Timer(FFDH_algorithm.packAndShow(itemList, 841, 1189))
+    BFDH_time = Timer(BFDH_algorithm.packAndShow(itemList, 841, 1189))
 
     return(FFDH_time, BFDH_time)
 
