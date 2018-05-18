@@ -54,12 +54,16 @@ def gcd_finding(item_list):
 
 def circulations_splitting(item_list):
     gcd = gcd_finding(item_list)
+    new_item_list = []
     for item in item_list:
         parts_amount = int(item[2] / gcd)
         item[2] = parts_amount
 
-        for i in range(parts_amount-1):
-            item_list.append(item)
+        for i in range(1, parts_amount):
+            new_item_list.append(item)
+
+    for item in new_item_list:
+        item_list.append(item)
 
     return item_list
 
@@ -136,7 +140,7 @@ def packAndShow(aList, maxWidth, maxHeight):                    # aList - зде
     for paper in papers_list:
         new_papers_list = []
         levels_on_paper = paper.__dict__['items']
-        max_circulation = max(level[3] for level in levels_on_paper)
+        max_circulation = max(level[3] for level in levels_on_paper)                #TODO: исправить на выбор - упаковка такого же или создание нового
 
     for i in range(0, (max_circulation)):
         new_papers_list.append(paper)
