@@ -1,13 +1,16 @@
 import FFDH_algorithm
-from FFDH_algorithm import itemList
 import BFDH_algorithm
-from timeit import Timer
+from FFDH_algorithm import itemList
+
+import timeit
 
 
 def time_compare():
 
-    FFDH_time = Timer(FFDH_algorithm.packAndShow(itemList, 841, 1189))
-    BFDH_time = Timer(BFDH_algorithm.packAndShow(itemList, 841, 1189))
+    FF_stmt = FFDH_algorithm.packAndShow(itemList, 841, 1189)
+    BF_stmt = BFDH_algorithm.packAndShow(itemList, 841, 1189)
+    FFDH_time = min(timeit.Timer(lambda: FF_stmt).repeat(repeat=3))
+    BFDH_time = min(timeit.Timer(lambda: BF_stmt).repeat(repeat=3))
 
     return(FFDH_time, BFDH_time)
 
@@ -25,11 +28,11 @@ def algorithms_compare():
     res_doc = open('result.txt', 'w')
 
     FFDH_time, BFDH_time = time_compare()
-    FFDH_cost = cost_compare()                          #вручную дописать параметры
-    BFDH_cost = cost_compare()                          #вручную дописать параметры
+    FFDH_cost = cost_compare(1, 2, 3, 4, 5)                          #вручную дописать параметры
+    BFDH_cost = cost_compare(1, 2, 3, 4, 5)                          #вручную дописать параметры
 
-    res_doc.write('FFDH algorithm: ', '/n', 'Time:' + FFDH_time, '/n', 'Cost: ' + FFDH_cost, '/n')
-    res_doc.write('BFDH algorithm: ', '/n', 'Time:' + BFDH_time, '/n', 'Cost: ' + BFDH_cost, '/n')
+    res_doc.write('FFDH algorithm: ' + '\n' + 'Time: ' + str(FFDH_time) + '\n' + 'Cost: ' + str(FFDH_cost) + '\n' + '\n')
+    res_doc.write('BFDH algorithm: ' + '\n' + 'Time: ' + str(BFDH_time) + '\n' + 'Cost: ' + str(BFDH_cost) + '\n')
 
     res_doc.close()
 
