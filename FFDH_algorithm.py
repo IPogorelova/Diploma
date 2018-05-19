@@ -102,7 +102,7 @@ def pack(item_list, max_width):                                     # max_width 
                 new_level.width = item[0]
                 level[2] = (841 - item[0])
                 levels_list.append([level_num, new_level, (free_space + item[0])])          # добавляет старый уровень в список уровней
-                break
+            break
 
     for level in levels_list:
         items_on_level = level[1].__dict__['items']
@@ -129,10 +129,9 @@ def packAndShow(aList, maxWidth, maxHeight):                    # aList - зде
     for level in levels_list:
         levels_height_sum += level[1].height
 
-        #for new_paper in papers_list:
         if new_paper.height + levels_height_sum <= maxHeight:
             new_paper.append_level(level)
-            #break
+
         else:
             print(new_paper)
             papers_list.append(new_paper)
@@ -140,10 +139,11 @@ def packAndShow(aList, maxWidth, maxHeight):                    # aList - зде
             new_paper.append_level(level)
             levels_height_sum = level[1].height
             paper_counter += 1
-            #break
+            break
 
-    papers_list.pop(0)
-    paper_counter = paper_counter-1
+    if len(papers_list) > 1:
+        papers_list.pop(0)
+        paper_counter = paper_counter-1
 
     print('All levels require ', paper_counter, ' pieces of paper to lay on.')
 
