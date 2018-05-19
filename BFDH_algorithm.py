@@ -68,8 +68,8 @@ def circulations_splitting(item_list):
 
 def pack(item_list, max_width):                                      # max_width - задаётся вручную пока, ширина нынешнего формата
     # функция просто упаковки в контейнер и создания нового при нехватке места
-    sorted(item_list, key=itemgetter(1, 3), reverse=True)
     item_list = circulations_splitting(item_list)
+    item_list = sorted(item_list, key=itemgetter(1, 3), reverse=True)
     levels_list = []
     free_spaces_list = []
 

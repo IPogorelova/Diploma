@@ -17,7 +17,7 @@ class Paper(object):
 
     def __str__(self):
         """ Printable representation """
-        return 'Levels on paper: %s' % (list([str(x) for x in self.items]))
+        return 'Levels on paper: %s' % (list([str(x) for x in self.items]))         #TODO: строковый вывод объекта уровня
 
 class Level(Paper):
     """ Level in each container """
@@ -27,11 +27,14 @@ class Level(Paper):
     def append(self, item):                                         # добавляем item на уровень (Level)
         self.items.append(item)
         self.width += item[0]
-        self.height += item[1]
+        # self.height = item[1]
 
     def __str__(self):
         """ Printable representation """
         return 'Items on level: %s; level_width: %d; level_height: %d' % (str(self.items), self.width, self.height)
+
+
+gcd = 0
 
 
 def gcd_finding(item_list):
@@ -53,6 +56,7 @@ def gcd_finding(item_list):
 
 
 def circulations_splitting(item_list):
+    global gcd
     gcd = gcd_finding(item_list)
     new_item_list = []
     for item in item_list:
@@ -70,11 +74,12 @@ def circulations_splitting(item_list):
 
 def pack(item_list, max_width):                                     # max_width - задаётся вручную пока, ширина нынешнего формата
     # функция просто упаковки в контейнер и создания нового при нехватке места
-    sorted(item_list, key=itemgetter(1, 3), reverse=True)
     item_list = circulations_splitting(item_list)
+    item_list = sorted(item_list, key=itemgetter(1, 3), reverse=True)
     levels_list = []
 
     new_level = Level()
+    new_level.height = item_list[0][1]
     levels_list.append(['level_1', new_level, max_width])            # [номер уровня, уровень, свободное место на уровне]
 
     for item in item_list:
@@ -88,7 +93,7 @@ def pack(item_list, max_width):                                     # max_width 
 
             else:
                 # контейнер не входит ни на один уровень - создаём новый
-                level_num = str('level_' + str(len(levels_list) + 1))
+                level_num = str('level_' + str(len(levels_list)))
                 print('Level ' + level_num + ' is full. Creating a new level.')
                 new_level = Level()
 
@@ -103,6 +108,8 @@ def pack(item_list, max_width):                                     # max_width 
         items_on_level = level[1].__dict__['items']
         max_circulation = gcd_finding(item_list)                              # max(item[2] for item in items_on_level)
         level.append(max_circulation)
+
+    levels_list.pop(0)
 
     return levels_list
 
@@ -122,32 +129,32 @@ def packAndShow(aList, maxWidth, maxHeight):                    # aList - зде
     for level in levels_list:
         levels_height_sum += level[1].height
 
-        for new_paper in papers_list:
-            if new_paper.height + levels_height_sum <= maxHeight:
-                new_paper.append_level(level)
-                break
-            else:
-                print(new_paper)
-                papers_list.append(new_paper)
-                new_paper = Paper(0, 0)
-                new_paper.append_level(level)
-                levels_height_sum = 0
-                paper_counter += 1
-                break
+        #for new_paper in papers_list:
+        if new_paper.height + levels_height_sum <= maxHeight:
+            new_paper.append_level(level)
+            #break
+        else:
+            print(new_paper)
+            papers_list.append(new_paper)
+            new_paper = Paper(0, 0)
+            new_paper.append_level(level)
+            levels_height_sum = level[1].height
+            paper_counter += 1
+            #break
+
+    papers_list.pop(0)
+    paper_counter = paper_counter-1
 
     print('All levels require ', paper_counter, ' pieces of paper to lay on.')
 
     for paper in papers_list:
-        new_papers_list = []
         levels_on_paper = paper.__dict__['items']
-        max_circulation = max(level[3] for level in levels_on_paper)                #TODO: исправить на выбор - упаковка такого же или создание нового
+        max_circulation = max(level[3] for level in levels_on_paper)*gcd
+        papers_amount = paper_counter*gcd
 
-    for i in range(0, (max_circulation)):
-        new_papers_list.append(paper)
+    print('Printing all orders requires ', papers_amount, ' pieces of paper in general.')
 
-    print('Printing all orders requires ', len(new_papers_list), ' pieces of paper.')
-
-    return new_papers_list
+    return papers_list
 
 
 itemList = my_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\Данные\\SD_02856\\test')
