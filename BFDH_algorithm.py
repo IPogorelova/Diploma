@@ -27,10 +27,14 @@ class Level(Paper):
     def append(self, item):             # добавляем item на уровень (Level)
         self.items.append(item)
         self.width += item[0]
+        self.height = self.items[0][1]
 
     def __str__(self):
         """ Printable representation """
         return 'Items on level: %s; level_width: %d; level_height: %d' % (str(self.items), self.width, self.height)
+
+
+gcd = 0
 
 
 def gcd_finding(item_list):
@@ -51,6 +55,7 @@ def gcd_finding(item_list):
     return gcd_result
 
 def circulations_splitting(item_list):
+    global gcd
     gcd = gcd_finding(item_list)
     new_item_list = []
     for item in item_list:
@@ -92,6 +97,9 @@ def pack(item_list, max_width):                                      # max_width
         except ValueError:                                                      # item не вхожит ни на один из уровней - создаём новый
             print('No level with enough free space. Creating a new level.')
             print(level)
+            free_space += item[0]
+            free_spaces_list.pop()
+            free_spaces_list.append(free_space)
             new_level = Level()
             level_counter += 1
             level_num = str('level_' + str(level_counter))
@@ -109,7 +117,7 @@ def pack(item_list, max_width):                                      # max_width
             nes_level.append(item)
             level[2] = level[2] - item[0]
 
-        free_spaces_list = []
+            free_spaces_list.pop()
 
     for level in levels_list:
         items_on_level = level[1].__dict__['items']
@@ -149,21 +157,19 @@ def packAndShow(aList, maxWidth, maxHeight): # aList - здесь orders, maxVal
     print('All levels require ', paper_counter, ' pieces of paper to lay on.')
 
     for paper in papers_list:
-        new_papers_list = []
         levels_on_paper = paper.__dict__['items']
-        max_circulation = max(level[3] for level in levels_on_paper)
+        max_circulation = max(level[3] for level in levels_on_paper)*gcd
+        papers_amount = paper_counter*gcd
 
-    for i in range(0, (max_circulation)):
-        new_papers_list.append(paper)
-    print('Printing all orders requires ', len(new_papers_list), ' pieces of paper.')
+    print('Printing all orders requires ', papers_amount, ' pieces of paper in general.')
 
-    return new_papers_list
+    return papers_list
 
 
 itemList = my_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\Данные\\SD_02856\\test')
 
 packAndShow(itemList, 841, 1189)
 
-# BFDH_result = open('FFDH_result.txt', 'w')
+# BFDH_result = open('BFDH_result.txt', 'w')
 # BFDH_result.write(packAndShow(itemList, 841, 1189))
 # BFDH_result.close()
