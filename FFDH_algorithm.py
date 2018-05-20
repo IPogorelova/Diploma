@@ -14,6 +14,7 @@ class Paper(object):
 
     def append_level(self, level):                                  # добавляем все Level на лист Paper
         self.items.append(level)
+        self.height += level[1].height
 
     def __str__(self):
         """ Printable representation """
@@ -131,6 +132,7 @@ def packAndShow(aList, maxWidth, maxHeight):                    # aList - зде
 
         if new_paper.height + levels_height_sum <= maxHeight:
             new_paper.append_level(level)
+            levels_height_sum = 0
 
         else:
             print(new_paper)
@@ -139,7 +141,7 @@ def packAndShow(aList, maxWidth, maxHeight):                    # aList - зде
             new_paper.append_level(level)
             levels_height_sum = level[1].height
             paper_counter += 1
-            break
+
 
     if len(papers_list) > 1:
         papers_list.pop(0)
@@ -157,7 +159,7 @@ def packAndShow(aList, maxWidth, maxHeight):                    # aList - зде
     return papers_list
 
 
-itemList = my_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\Данные\\SD_02856\\test')
+itemList = my_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\Данные\\SD_02856')
 
 print(list([str(x) for x in packAndShow(itemList, 841, 1189)]))
 
