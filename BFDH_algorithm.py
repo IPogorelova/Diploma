@@ -1,5 +1,5 @@
 """Best Fit Decreasing algorithm"""
-import my_parser
+import fastprint_parser
 import math
 from operator import itemgetter
 
@@ -17,7 +17,10 @@ class Paper(object):
 
     def __str__(self):
         """ Printable representation """
-        return 'Levels on paper: %s' % (str(self.items))
+        s = ''
+        for i in self.items:
+            s += i[0].__str__() + ' ' + i[1].__str__() + '; '
+        return 'Levels on paper: ' + s
 
 class Level(Paper):
     """ Level in each container """
@@ -90,34 +93,38 @@ def pack(item_list, max_width):                                      # max_width
             free_space = level[2] - item[0]
             free_spaces_list.append(free_space)
 
-        try:
-            min_free_space = min([i for i in free_spaces_list if i >= 0])
-            min_free_space_index = free_spaces_list.index(min_free_space)       #индекс уровня с наименьшим количеством свободного места после упаковки текущего item
+            try:
+                min_free_space = min([i for i in free_spaces_list if i >= 0])
+                min_free_space_index = free_spaces_list.index(min_free_space)       #индекс уровня с наименьшим количеством свободного места после упаковки текущего item
 
-        except ValueError:                                                      # item не вхожит ни на один из уровней - создаём новый
-            print('No level with enough free space. Creating a new level.')
-            print(level)
-            free_space += item[0]
-            free_spaces_list.pop()
-            free_spaces_list.append(free_space)
-            new_level = Level()
-            level_counter += 1
-            level_num = str('level_' + str(level_counter))
-            levels_list.append([level_num, new_level, 841])                # добавляет новый уровень в список уровней
-            level = levels_list[-1]
+            except ValueError:                                                      # item не вхожит ни на один из уровней - создаём новый
+                print('No level with enough free space. Creating a new level.')
+                print(level)
+                free_space += item[0]
+                free_spaces_list.pop()
+                free_spaces_list.append(free_space)
+                new_level = Level()
+                level_counter += 1
+                level_num = str('level_' + str(level_counter))
+                levels_list.append([level_num, new_level, 841])                # добавляет новый уровень в список уровней
+                level = levels_list[-1]
 
-            new_level.append(item)
-            new_level.height = item[1]
-            new_level.width = item[0]
-            level[2] = (841 - item[0])
+                new_level.append(item)
+                new_level.height = item[1]
+                new_level.width = item[0]
+                level[2] = (841 - item[0])
+                break
 
-        else:                                                                    # нашли лучший уровень - кладём item туда
-            new_level = levels_list[min_free_space_index]
-            nes_level = new_level[1]
-            nes_level.append(item)
-            level[2] = level[2] - item[0]
+            else:                                                                    # нашли лучший уровень - кладём item туда
+                new_level = levels_list[min_free_space_index]
+                nes_level = new_level[1]
+                nes_level.append(item)
+                level[2] = level[2] - item[0]
 
-            free_spaces_list.pop()
+                free_spaces_list.pop()
+                break
+
+
 
     for level in levels_list:
         items_on_level = level[1].__dict__['items']
@@ -166,7 +173,7 @@ def packAndShow(aList, maxWidth, maxHeight): # aList - здесь orders, maxVal
     return papers_list
 
 
-itemList = my_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\Данные\\SD_02856\\test')
+itemList = fastprint_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\Данные\\SD_02856')
 
 packAndShow(itemList, 841, 1189)
 

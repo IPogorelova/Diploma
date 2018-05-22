@@ -1,5 +1,5 @@
 """First Fit Decreasing algorithm"""
-import my_parser
+import fastprint_parser
 import math
 from operator import itemgetter
 
@@ -18,7 +18,11 @@ class Paper(object):
 
     def __str__(self):
         """ Printable representation """
-        return 'Levels on paper: %s' % (list([str(x) for x in self.items]))         #TODO: строковый вывод объекта уровня
+        s = ''
+        for i in self.items:
+            s += i[0].__str__() + ' ' + i[1].__str__() + '; '
+        return 'Levels on paper: ' + s
+
 
 class Level(Paper):
     """ Level in each container """
@@ -135,7 +139,7 @@ def packAndShow(aList, maxWidth, maxHeight):                    # aList - зде
             levels_height_sum = 0
 
         else:
-            print(new_paper)
+            print(str(new_paper))
             papers_list.append(new_paper)
             new_paper = Paper(0, 0)
             new_paper.append_level(level)
@@ -159,7 +163,7 @@ def packAndShow(aList, maxWidth, maxHeight):                    # aList - зде
     return papers_list
 
 
-itemList = my_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\Данные\\SD_02856')
+itemList = fastprint_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\Данные\\SD_02856')
 
 print(list([str(x) for x in packAndShow(itemList, 841, 1189)]))
 
