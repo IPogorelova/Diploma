@@ -36,7 +36,7 @@ class Level(Paper):
 
     def __str__(self):
         """ Printable representation """
-        return 'Items on level: %s; level_width: %d; level_height: %d' % (str(self.items), self.width, self.height)
+        return 'Items on level: %s; level_height: %d' % (str(self.items), self.height)
 
 
 gcd = 0
@@ -99,7 +99,7 @@ def pack(item_list, max_width):                                     # max_width 
             else:
                 # контейнер не входит ни на один уровень - создаём новый
                 level_num = str('level_' + str(len(levels_list)))
-                print('Level ' + level_num + ' is full. Creating a new level.')
+                #print('Level ' + level_num + ' is full. Creating a new level.')
                 new_level = Level()
 
                 new_level.append(item)
@@ -165,8 +165,6 @@ def packAndShow(aList, maxWidth, maxHeight):                    # aList - зде
 
 itemList = fastprint_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\Данные\\SD_02856')
 
-print(list([str(x) for x in packAndShow(itemList, 841, 1189)]))
-
-# FFDH_result = open('FFDH_result.txt', 'w')
-# FFDH_result.write(str(list([str(x) for x in packAndShow(itemList, 841, 1189)])))
-# FFDH_result.close()
+FFDH_result = open('FFDH_result.txt', 'w')
+FFDH_result.write(str(list([str(x) for x in packAndShow(itemList, 841, 1189)])))
+FFDH_result.close()
