@@ -34,7 +34,7 @@ class Level(Paper):
 
     def __str__(self):
         """ Printable representation """
-        return 'Items on level: %s; level_width: %d; level_height: %d' % (str(self.items), self.width, self.height)
+        return 'Items on level: %s; level_height: %d' % (str(self.items), self.height)
 
 
 gcd = 0
@@ -175,8 +175,6 @@ def packAndShow(aList, maxWidth, maxHeight): # aList - здесь orders, maxVal
 
 itemList = fastprint_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\Данные\\SD_02856')
 
-packAndShow(itemList, 841, 1189)
-
-# BFDH_result = open('BFDH_result.txt', 'w')
-# BFDH_result.write(packAndShow(itemList, 841, 1189))
-# BFDH_result.close()
+BFDH_result = open('BFDH_result.txt', 'w')
+BFDH_result.write(packAndShow(itemList, 841, 1189))
+BFDH_result.close()
