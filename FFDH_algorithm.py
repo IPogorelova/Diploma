@@ -3,7 +3,7 @@ import fastprint_parser
 import math
 from operator import itemgetter
 import json
-
+import jsonpickle
 
 
 class Paper(object):
@@ -39,6 +39,7 @@ class Level(Paper):
         """ Printable representation """
         # return 'Items on level: %s; level_height: %d' % (str(self.items), self.height)
         return '%s' % list(self.items)
+
 
 gcd = 0
 
@@ -167,10 +168,11 @@ def packAndShow(aList, maxWidth, maxHeight):                    # aList - зде
 itemList = fastprint_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\Данные\\SD_02856')
 
 FFDH_result = open('FFDH_result.json', 'w')
-FFDH_result.write('{' +'\n')
-for x in list(packAndShow(itemList, 841, 1189)):
-    FFDH_result.write(str((json.dumps([x.__str__()])) + ',' + '\n'))
-FFDH_result.write('}')
+FFDH_result.write(jsonpickle.encode(packAndShow(itemList, 841, 1189)))
+#FFDH_result.write('{' +'\n')
+#for x in list(packAndShow(itemList, 841, 1189)):
+#    FFDH_result.write(str((json.dumps([x.__str__()])) + ',' + '\n'))
+#FFDH_result.write('}')
 FFDH_result.close()
 
 # FFDH_result = open('FFDH_result.txt', 'w')
