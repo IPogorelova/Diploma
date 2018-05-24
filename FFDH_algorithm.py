@@ -167,8 +167,10 @@ def packAndShow(aList, maxWidth, maxHeight):                    # aList - зде
 itemList = fastprint_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\Данные\\SD_02856')
 
 FFDH_result = open('FFDH_result.json', 'w')
+FFDH_result.write('{' +'\n')
 for x in list(packAndShow(itemList, 841, 1189)):
-    FFDH_result.write(str(json.dumps([x.__str__()]))+'\n')
+    FFDH_result.write(str((json.dumps([x.__str__()])) + ',' + '\n'))
+FFDH_result.write('}')
 FFDH_result.close()
 
 # FFDH_result = open('FFDH_result.txt', 'w')
