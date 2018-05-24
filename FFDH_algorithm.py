@@ -2,6 +2,7 @@
 import fastprint_parser
 import math
 from operator import itemgetter
+import json
 
 
 
@@ -21,8 +22,8 @@ class Paper(object):
         s = ''
         for i in self.items:
             s += i[0].__str__() + ' ' + i[1].__str__() + '; '
-        return 'Levels on paper: ' + s
-
+        # return 'Levels on paper: ' + s
+        return s #+ '\n'
 
 class Level(Paper):
     """ Level in each container """
@@ -36,8 +37,8 @@ class Level(Paper):
 
     def __str__(self):
         """ Printable representation """
-        return 'Items on level: %s; level_height: %d' % (str(self.items), self.height)
-
+        # return 'Items on level: %s; level_height: %d' % (str(self.items), self.height)
+        return '%s' % list(self.items)
 
 gcd = 0
 
@@ -165,6 +166,12 @@ def packAndShow(aList, maxWidth, maxHeight):                    # aList - зде
 
 itemList = fastprint_parser.parseXML('C:\\Users\\Инна\\Desktop\\Диплом\\Данные\\SD_02856')
 
-FFDH_result = open('FFDH_result.txt', 'w')
-FFDH_result.write(str(list([str(x) for x in packAndShow(itemList, 841, 1189)])))
+FFDH_result = open('FFDH_result.json', 'w')
+for x in list(packAndShow(itemList, 841, 1189)):
+    FFDH_result.write(str(json.dumps([x.__str__()]))+'\n')
 FFDH_result.close()
+
+# FFDH_result = open('FFDH_result.txt', 'w')
+# FFDH_result.write(str(list([str(x) for x in packAndShow(itemList, 841, 1189)])))
+# FFDH_result.close()
+
