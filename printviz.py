@@ -4,6 +4,7 @@ from pysvg.structure import *
 from pysvg.builders import *
 import json
 
+
 DOTS_PER_CM = 2.8 # 2.8 dots per mm for screen @ 72dpi
 
 class Layout:
@@ -16,10 +17,10 @@ class Layout:
                                                           strokewidth = 3))
 
     def add(self, x, y, h, w):
-        x = x*DOTS_PER_CM
-        y = y * DOTS_PER_CM
-        h = h * DOTS_PER_CM
-        w = w * DOTS_PER_CM
+        x = x * DOTS_PER_CM/10
+        y = y * DOTS_PER_CM/10
+        h = h * DOTS_PER_CM/10
+        w = w * DOTS_PER_CM/10
         self.doc.addElement(self.shape_builder.createRect(str(x), str(y), "%dpx" % h, "%dpx" % w))
 
     def save(self, filename):
@@ -29,10 +30,27 @@ def json_parser():
     FFDH_result = open('FFDH_result.json', 'r')
     papers_list = json.load(FFDH_result)
 
-    for item in papers_list:
-        print(item)
+    layout_counter = 0
 
-    #return papers_list
+    for item in papers_list:
+        layout = Layout(841 * DOTS_PER_CM / 10, 1189 * DOTS_PER_CM / 10)
+        x = 0
+        y = 0
+        for level in item['items']:
+            item_list = level[1]['items']
+            for element in item_list:
+                height = element[0]
+                width = element[1]
+                layout.add(x, y, width, height)
+                x+=width
+            y+=height
+            x = 0
+
+        layout_counter += 1
+        layout.save("layout_" + str(layout_counter) + ".svg")
+
+
+
 
 json_parser()
 
@@ -47,5 +65,3 @@ json_parser()
 #layout.add(0, 105, 200, 50)
 #layout.add(205, 0, 300, 450)
 #layout.add(0, 160, 200, 100)              # (x, y, width, height)
-
-#layout.save("layout.svg")
