@@ -32,12 +32,13 @@ def json_parser():
 
     layout_counter = 0
 
-    for item in papers_list:
+    for paper in papers_list:
         layout = Layout(841 * DOTS_PER_CM / 10, 1189 * DOTS_PER_CM / 10)
         x = 0
         y = 0
-        for level in item['items']:
+        for level in paper['items']:
             item_list = level[1]['items']
+            height = max(i[0] for i in item_list)
             for element in item_list:
                 height = element[0]
                 width = element[1]
